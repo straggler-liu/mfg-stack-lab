@@ -1,0 +1,33 @@
+{
+  "verified": "2026-08-06",
+  "products": {
+    "MRPeasy": {
+      "starting_price_usd_user_month": 49,
+      "professional": 69,
+      "enterprise": 99,
+      "referral": "20% for first 3 years",
+      "referral_window_days": 90
+    },
+    "Katana": {
+      "core_start_usd_month": 299,
+      "free_sku_limit": 30,
+      "commission": "private written agreement",
+      "referral_window_days": 90,
+      "cancellation_hold_days": 60
+    },
+    "inFlow Manufacturing": {
+      "startup_usd_month_annual": 179,
+      "growth": 449,
+      "scale": 899,
+      "referral": "20% recurring/lifetime while subscribed"
+    }
+  },
+  "project": {
+    "status": "independent non-incorporated validation-stage research project",
+    "public_url": "https://straggler-liu.github.io/mfg-stack-lab/",
+    "company_formed": false,
+    "affiliate_links_live": false,
+    "analytics_enabled": false,
+    "email_collection_enabled": false
+  }
+}
