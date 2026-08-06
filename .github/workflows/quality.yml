@@ -18,7 +18,6 @@ jobs:
       - name: Audit repository structure
         run: python scripts/site_audit.py
       - name: Audit deployed website
-        if: github.event_name != 'pull_request'
         id: live
         continue-on-error: true
         run: python scripts/site_audit.py --live-url https://straggler-liu.github.io/mfg-stack-lab/
