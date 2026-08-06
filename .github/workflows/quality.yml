@@ -1,0 +1,48 @@
+name: Automated site health check
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Audit repository and live site
+        id: audit
+        continue-on-error: true
+        run: python scripts/site_audit.py --live-url https://straggler-liu.github.io/mfg-stack-lab/
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: site-audit-report
+          path: reports/site-audit-latest.json
+      - name: Open or update incident issue
+        if: steps.audit.outcome == 'failure' && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='[Automation] MFG Stack Lab site health check failed'
+          body=$(cat <<'EOF'
+          The scheduled website audit failed.
+
+          Review the latest **Automated site health check** workflow artifact for the exact page, link or live-site error. Fix the underlying problem and close this issue after a successful rerun.
+          EOF
+          )
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "The scheduled check failed again on $(date -u +%F)."
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+      - name: Fail workflow when audit fails
+        if: steps.audit.outcome == 'failure'
+        run: exit 1
