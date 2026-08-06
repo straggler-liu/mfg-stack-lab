@@ -50,9 +50,10 @@ jobs:
           title='[Automation] Initial GitHub Pages deployment succeeded'
           existing=$(gh issue list --state all --search "$title in:title" --json number --jq '.[0].number // empty')
           if [ -z "$existing" ]; then
-            url="https://straggler-liu.github.io/mfg-stack-lab/"
-            issue=$(gh issue create --title "$title" --body "The site audit and GitHub Pages deployment completed successfully. Public URL: $url" --json number --jq '.number')
-            gh issue close "$issue" --reason completed
+            url='https://straggler-liu.github.io/mfg-stack-lab/'
+            issue_url=$(gh issue create --title "$title" --body "The site audit and GitHub Pages deployment completed successfully. Public URL: $url")
+            issue_number=${issue_url##*/}
+            gh issue close "$issue_number" --reason completed
           fi
 
   report-failure:
