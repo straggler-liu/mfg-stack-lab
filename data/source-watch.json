@@ -1,0 +1,41 @@
+{
+  "checked_against": "official vendor pages",
+  "generated": "2026-08-06",
+  "sources": [
+    {
+      "name": "MRPeasy pricing",
+      "url": "https://www.mrpeasy.com/pricing/",
+      "patterns": ["49", "69", "99"]
+    },
+    {
+      "name": "MRPeasy referral program",
+      "url": "https://www.mrpeasy.com/referrers/",
+      "patterns": ["20%"]
+    },
+    {
+      "name": "Katana pricing",
+      "url": "https://katanamrp.com/pricing/",
+      "patterns": ["299"]
+    },
+    {
+      "name": "Katana partner terms",
+      "url": "https://katanamrp.com/partner-terms-of-service/",
+      "patterns": ["90", "60"]
+    },
+    {
+      "name": "inFlow manufacturing pricing",
+      "url": "https://www.inflowinventory.com/software-pricing-inflow",
+      "patterns": ["179", "449", "899"]
+    },
+    {
+      "name": "inFlow partner program",
+      "url": "https://www.inflowinventory.com/partner-program",
+      "patterns": ["20%"]
+    },
+    {
+      "name": "Google review guidance",
+      "url": "https://developers.google.com/search/docs/specialty/ecommerce/write-high-quality-reviews",
+      "patterns": ["evidence"]
+    }
+  ]
+}

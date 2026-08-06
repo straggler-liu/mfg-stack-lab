@@ -1,0 +1,9 @@
+﻿dimension,weight_percent,requirement,vendor_a_score_0_10,vendor_b_score_0_10,evidence_link
+BOM and manufacturing,20,"Multi-level BOM, routing, MO, partial completion",,,
+Inventory and traceability,15,Lot/serial/expiry/location/genealogy,,,
+Scheduling and capacity,15,"Work centers, priorities, subcontracting",,,
+Integrations,15,"Commerce, accounting and API",,,
+Implementation effort,10,"Import, setup, training and pilot time",,,
+Three-year TCO,10,"Subscription, usage, add-ons, onboarding",,,
+Reporting and permissions,10,"Reports, roles and audit",,,
+Portability and support,5,Exports and support response,,,

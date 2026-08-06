@@ -1,0 +1,3 @@
+﻿record_type,record_id,name,item_type,uom,status,location,quantity,lot_or_serial,standard_cost,supplier,lead_time_days,parent_item,component_item,component_qty,revision,effective_date,owner,notes
+item,FG-001,Example finished good,Finished Good,pcs,Active,,,,,,,,,,,,Operations,
+bom,,,,,,,,,,,,FG-001,RM-001,2,A,2026-08-01,Engineering,

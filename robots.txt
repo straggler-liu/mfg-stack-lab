@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://straggler-liu.github.io/mfg-stack-lab/sitemap.xml
