@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
 
 concurrency:
   group: pages
@@ -37,3 +38,26 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+  report-failure:
+    if: always() && (needs.validate.result == 'failure' || needs.deploy.result == 'failure')
+    needs: [validate, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open or update deployment incident
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='[Automation] GitHub Pages deployment failed'
+          body=$(cat <<'EOF'
+          The MFG Stack Lab deployment workflow failed.
+
+          Check the latest **Deploy static site to GitHub Pages** workflow run. The common first-launch cause is that repository **Settings → Pages → Build and deployment → Source** is not yet set to **GitHub Actions**. Other causes include a failed site audit or a Pages permission error.
+          EOF
+          )
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Deployment failed again on $(date -u +%F)."
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
