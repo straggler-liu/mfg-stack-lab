@@ -1,0 +1,47 @@
+name: Weekly source and pricing watch
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 2 * * 1'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check official source pages
+        id: watch
+        continue-on-error: true
+        run: python scripts/source_watch.py
+      - name: Upload source report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: source-watch-report
+          path: reports/source-watch-latest.json
+      - name: Open or update source-change issue
+        if: steps.watch.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='[Automation] Vendor price or source evidence needs review'
+          body=$(cat <<'EOF'
+          The weekly official-source monitor found a material problem: a source returned a terminal error or one of the expected published-price/partner-term markers disappeared.
+
+          Download the **source-watch-report** artifact from this workflow run. Verify the vendor page manually before changing any published fact. Do not automatically overwrite editorial content from a single automated check.
+          EOF
+          )
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "The source check failed again on $(date -u +%F)."
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
+      - name: Fail workflow for material source changes
+        if: steps.watch.outcome == 'failure'
+        run: exit 1
