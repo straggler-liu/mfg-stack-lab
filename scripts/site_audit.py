@@ -7,6 +7,8 @@ import argparse, json, re, sys, urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
 PLACEHOLDERS = ('YOUR-DOMAIN', 'Replace this paragraph', 'operating company name', 'company email and jurisdiction')
+VERIFICATION_FILE = 'googlea4b5334b8d3b78e4.html'
+VERIFICATION_TOKEN = 'google-site-verification: googlea4b5334b8d3b78e4.html'
 
 class Parser(HTMLParser):
     def __init__(self):
@@ -34,6 +36,8 @@ def local_target(source: Path, href: str) -> Path | None:
 def audit_local():
     errors=[]; pages=[]
     for path in sorted(ROOT.glob('*.html')):
+        if path.name == VERIFICATION_FILE:
+            continue
         text=path.read_text(encoding='utf-8')
         p=Parser(); p.feed(text)
         if not p.title: errors.append(f'{path.name}: missing title')
@@ -45,13 +49,18 @@ def audit_local():
             target=local_target(path, href)
             if target and not target.exists(): errors.append(f'{path.name}: missing local target {href}')
         pages.append({'page':path.name,'title':p.title,'h1':p.h1,'links':len(p.links)})
+    verification = ROOT / VERIFICATION_FILE
+    if not verification.exists():
+        errors.append(f'{VERIFICATION_FILE}: missing Google verification file')
+    elif verification.read_text(encoding='utf-8').strip() != VERIFICATION_TOKEN:
+        errors.append(f'{VERIFICATION_FILE}: verification token mismatch')
     if 'YOUR-DOMAIN' in (ROOT/'robots.txt').read_text(encoding='utf-8'): errors.append('robots.txt: unresolved domain')
     if 'YOUR-DOMAIN' in (ROOT/'sitemap.xml').read_text(encoding='utf-8'): errors.append('sitemap.xml: unresolved domain')
     return {'ok':not errors,'errors':errors,'pages':pages}
 
 def audit_live(base: str):
     errors=[]; results=[]
-    for rel in ('','mrp-software.html','mrp-readiness.html','tco-calculator.html','privacy.html'):
+    for rel in ('','mrp-software.html','mrp-readiness.html','tco-calculator.html','privacy.html',VERIFICATION_FILE):
         url=base.rstrip('/')+'/'+rel
         req=urllib.request.Request(url,headers={'User-Agent':'MFGStackLab-Monitor/1.0'})
         try:
@@ -59,6 +68,7 @@ def audit_live(base: str):
                 code=r.status; body=r.read(300000).decode('utf-8','ignore')
             if code != 200: errors.append(f'{url}: HTTP {code}')
             if rel=='' and 'Choose manufacturing software with evidence' not in body: errors.append(f'{url}: homepage marker missing')
+            if rel==VERIFICATION_FILE and body.strip() != VERIFICATION_TOKEN: errors.append(f'{url}: Google verification token mismatch')
             results.append({'url':url,'status':code,'bytes':len(body)})
         except Exception as exc:
             errors.append(f'{url}: {type(exc).__name__}: {exc}')
@@ -72,6 +82,6 @@ def main():
     errors=report['local']['errors'] + report.get('live',{}).get('errors',[])
     if errors:
         print('\n'.join(errors)); return 1
-    print(f"Site audit passed: {len(report['local']['pages'])} HTML pages")
+    print(f"Site audit passed: {len(report['local']['pages'])} HTML pages plus Google verification file")
     return 0
 if __name__=='__main__': raise SystemExit(main())
