@@ -9,6 +9,7 @@ https://straggler-liu.github.io/mfg-stack-lab/
 ## Current operating status
 
 - Independent, non-incorporated validation-stage research project
+- GitHub Actions and GitHub Pages enabled on August 6, 2026
 - No affiliate tracking links at launch
 - No advertising analytics or email collection at launch
 - Product review pages remain `noindex,follow` until hands-on testing is complete
@@ -36,7 +37,7 @@ Then open `http://localhost:8080`.
 
 ## GitHub Pages
 
-The repository is configured for deployment through GitHub Actions. In repository settings, **Pages → Build and deployment → Source** must be set to **GitHub Actions** once. Every later push to `main` deploys automatically.
+The repository is configured for deployment through GitHub Actions. Every push to `main` validates and deploys automatically.
 
 ## Later custom domain
 
