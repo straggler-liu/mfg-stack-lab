@@ -1,0 +1,37 @@
+name: Monthly business validation review
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 2 1 * *'
+
+permissions:
+  issues: write
+
+jobs:
+  create-review:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Create monthly validation issue
+        run: |
+          month=$(date -u +%Y-%m)
+          title="[Monthly review] MFG Stack Lab validation — $month"
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body "$(cat <<'EOF'
+          Record only verifiable business signals for the month:
+
+          - [ ] Search impressions and indexed pages
+          - [ ] Queries entering the top 100 / 50 / 20
+          - [ ] Vendor outbound clicks, if analytics has been enabled and disclosed
+          - [ ] Trial/demo referrals and paid conversions
+          - [ ] Source or pricing changes requiring editorial updates
+          - [ ] Pages to expand, merge, rewrite or stop
+          - [ ] Whether any two company-formation triggers have been reached
+
+          Company-formation triggers: two consecutive months with 100+ high-intent vendor clicks; five trial/demo referrals or two paid customers; expected recurring commission of $500/month; or a high-value partner program blocked solely by lack of a company.
+          EOF
+          )"
+          fi
