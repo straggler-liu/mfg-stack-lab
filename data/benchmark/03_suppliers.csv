@@ -1,0 +1,4 @@
+Supplier code,Supplier name,Category,Lead time days,Currency,Email
+SUP-BRIGHT,Bright Components Ltd,Electronics / electrical,14,USD,supplier.bright@example.com
+SUP-PREC,Precision Enclosures Co,Enclosures / packaging,21,USD,supplier.precision@example.com
+SUP-CHEM,CleanChem Supplies,Chemicals / bottles,10,USD,supplier.cleanchem@example.com
