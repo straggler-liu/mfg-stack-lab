@@ -1,0 +1,21 @@
+Product variant code / SKU,Sequence,Product operation name,Duration minutes,Work center
+SFG-LAMP-HARN,1,Cut cable,3,Assembly
+SFG-LAMP-HARN,2,Terminate connectors,5,Assembly
+FG-LAMP-STD,1,Mechanical assembly,6,Assembly
+FG-LAMP-STD,2,Electrical assembly,8,Assembly
+FG-LAMP-STD,3,Functional test,5,Quality
+FG-LAMP-STD,4,Pack,3,Packing
+SFG-CBOX-HARN,1,Cut and strip cable,5,Assembly
+SFG-CBOX-HARN,2,Crimp connectors,8,Assembly
+SFG-CBOX-HARN,3,Continuity test,4,Quality
+FG-CBOX-CST,1,Enclosure preparation,10,Assembly
+FG-CBOX-CST,2,PCB mounting,8,Assembly
+FG-CBOX-CST,3,Wiring,15,Assembly
+FG-CBOX-CST,4,Functional test,10,Quality
+FG-CBOX-CST,5,Serial label and pack,4,Packing
+SFG-CLEAN-BASE,1,Dispense ingredients,3,Mixing
+SFG-CLEAN-BASE,2,Blend,8,Mixing
+SFG-CLEAN-BASE,3,Batch QC,5,Quality
+FG-CLEAN-1L,1,Fill,4,Filling
+FG-CLEAN-1L,2,Label and batch encode,3,Packing
+FG-CLEAN-1L,3,Pack,2,Packing
