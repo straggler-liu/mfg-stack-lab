@@ -1,0 +1,4 @@
+Customer code,Customer name,Type,Currency,Email
+CUS-NORTH,Northstar Office Supply,B2B Distributor,USD,buyer.northstar@example.com
+CUS-VECTOR,Vector Automation LLC,Industrial Buyer,USD,procurement.vector@example.com
+CUS-DIRECT,Direct Web Customer,DTC / Shopify,USD,customer.direct@example.com
