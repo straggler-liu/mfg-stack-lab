@@ -1,0 +1,4 @@
+MO ID,SKU,Quantity,Due date,Expected benchmark behavior
+MO-BENCH-001,FG-LAMP-STD,10,2026-08-13,Expected shortage: LED modules
+MO-BENCH-002,FG-CBOX-CST,4,2026-08-16,Expected shortage: enclosures
+MO-BENCH-003,FG-CLEAN-1L,30,2026-08-13,Expected shortage: surfactant and bottles

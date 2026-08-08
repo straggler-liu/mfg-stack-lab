@@ -1,0 +1,7 @@
+SKU,Product name,Category,Unit of measure,Default sales price,Manufacturing mode,Tracking,Sell?,Make?,Buy?
+FG-LAMP-STD,Standard Desk Lamp,Finished Good,pcs,89.0,Make-to-stock,None,Yes,Yes,No
+FG-CBOX-CST,Custom Control Box,Finished Good,pcs,349.0,Make-to-order,Serial,Yes,Yes,No
+FG-CLEAN-1L,Batch Cleaning Concentrate 1L,Finished Good,pcs,24.0,Batch,Batch/Lot,Yes,Yes,No
+SFG-LAMP-HARN,Lamp Cable Assembly,Subassembly,pcs,0.0,Internal subassembly,None,No,Yes,No
+SFG-CBOX-HARN,Control Box Harness Assembly,Subassembly,pcs,0.0,Internal subassembly,None,No,Yes,No
+SFG-CLEAN-BASE,Cleaning Base Mix,Subassembly,L,0.0,Internal batch,Batch/Lot,No,Yes,No

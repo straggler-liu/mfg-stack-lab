@@ -1,0 +1,14 @@
+SKU,Material name,Category,Unit of measure,Default purchase price,Lead time days,Safety stock,Default supplier
+RM-AL-HOUS,Aluminum Lamp Housing,Mechanical,pcs,8.5,12,20,Bright Components Ltd
+RM-LED-MOD,LED Module,Electronics,pcs,6.2,14,25,Bright Components Ltd
+RM-PCB-LAMP,Lamp Control PCB,Electronics,pcs,7.8,14,20,Bright Components Ltd
+RM-PWR-24V,24V Power Adapter,Electronics,pcs,5.9,14,15,Bright Components Ltd
+RM-CABLE-MC,Multi-core Cable,Electrical,m,0.95,10,50,Bright Components Ltd
+RM-CONN-SET,Connector Set,Electrical,pcs,0.75,10,40,Bright Components Ltd
+RM-CBOX-ENC,Control Box Enclosure,Mechanical,pcs,18.0,21,8,Precision Enclosures Co
+RM-CBOX-PCB,Control Board,Electronics,pcs,42.0,21,6,Bright Components Ltd
+RM-WATER-DI,Deionized Water,Chemical,L,0.35,5,20,CleanChem Supplies
+RM-SURFACT,Surfactant Concentrate,Chemical,L,6.5,10,8,CleanChem Supplies
+PKG-LAMP-BOX,Lamp Shipping Box,Packaging,pcs,1.2,7,15,Precision Enclosures Co
+PKG-CBOX-BOX,Control Box Shipping Box,Packaging,pcs,2.5,7,8,Precision Enclosures Co
+PKG-CLEAN-BTL,1L HDPE Bottle + Cap,Packaging,pcs,0.8,7,30,CleanChem Supplies

@@ -1,0 +1,20 @@
+Product variant code / SKU,Ingredient variant code / SKU,Quantity,Ingredient UoM,Notes
+SFG-LAMP-HARN,RM-CABLE-MC,1.5,m,Cable length per harness
+SFG-LAMP-HARN,RM-CONN-SET,2,pcs,Connector sets per harness
+FG-LAMP-STD,RM-AL-HOUS,1,pcs,
+FG-LAMP-STD,RM-LED-MOD,1,pcs,
+FG-LAMP-STD,RM-PCB-LAMP,1,pcs,
+FG-LAMP-STD,RM-PWR-24V,1,pcs,
+FG-LAMP-STD,SFG-LAMP-HARN,1,pcs,Subassembly
+FG-LAMP-STD,PKG-LAMP-BOX,1,pcs,
+SFG-CBOX-HARN,RM-CABLE-MC,2.0,m,Cable length per harness
+SFG-CBOX-HARN,RM-CONN-SET,4,pcs,Connector sets per harness
+FG-CBOX-CST,RM-CBOX-ENC,1,pcs,
+FG-CBOX-CST,RM-CBOX-PCB,1,pcs,
+FG-CBOX-CST,RM-PWR-24V,1,pcs,
+FG-CBOX-CST,SFG-CBOX-HARN,1,pcs,Subassembly
+FG-CBOX-CST,PKG-CBOX-BOX,1,pcs,
+SFG-CLEAN-BASE,RM-WATER-DI,0.85,L,85% water
+SFG-CLEAN-BASE,RM-SURFACT,0.15,L,15% concentrate
+FG-CLEAN-1L,SFG-CLEAN-BASE,1.0,L,One liter fill
+FG-CLEAN-1L,PKG-CLEAN-BTL,1,pcs,
