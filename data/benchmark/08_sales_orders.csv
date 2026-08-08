@@ -1,0 +1,4 @@
+Order ID,Customer code,SKU,Quantity,Unit price USD,Due date,Scenario
+SO-BENCH-001,CUS-NORTH,FG-LAMP-STD,8,89.0,2026-08-15,Make-to-stock demand
+SO-BENCH-002,CUS-VECTOR,FG-CBOX-CST,3,349.0,2026-08-18,Make-to-order; serial tracking
+SO-BENCH-003,CUS-DIRECT,FG-CLEAN-1L,24,24.0,2026-08-14,Batch-tracked finished goods
