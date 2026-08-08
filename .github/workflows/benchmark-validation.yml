@@ -1,0 +1,29 @@
+name: Benchmark Validation
+
+on:
+  push:
+    paths:
+      - 'data/benchmark/**'
+      - 'scripts/validate_benchmark.py'
+      - '.github/workflows/benchmark-validation.yml'
+  pull_request:
+    paths:
+      - 'data/benchmark/**'
+      - 'scripts/validate_benchmark.py'
+      - '.github/workflows/benchmark-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate benchmark integrity
+        run: python scripts/validate_benchmark.py
