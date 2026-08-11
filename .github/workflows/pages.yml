@@ -65,6 +65,7 @@ jobs:
       - name: Record first successful deployment
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           title='[Automation] Initial GitHub Pages deployment succeeded'
           existing=$(gh issue list --state all --search "$title in:title" --json number --jq '.[0].number // empty')
@@ -83,6 +84,7 @@ jobs:
       - name: Open or update deployment incident
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           title='[Automation] GitHub Pages deployment failed'
           body=$(cat <<'EOF'
