@@ -39,12 +39,18 @@ jobs:
           rm -rf public
           mkdir -p public
           cp -R assets public/
+          cp -R services public/
+          cp -R data public/
           if [ -d downloads ]; then cp -R downloads public/; fi
           find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.xml' -o -name '*.txt' -o -name '*.csv' \) -exec cp {} public/ \;
           touch public/.nojekyll
+          test -f public/fit-check.html
+          test -f public/vendor-partners.html
+          test -f public/services/software-fit-diagnostic.html
+          test -f public/data/fit-model-v1.json
           test -f public/googlea4b5334b8d3b78e4.html
           test "$(tr -d '\r\n' < public/googlea4b5334b8d3b78e4.html)" = "google-site-verification: googlea4b5334b8d3b78e4.html"
-          find public -maxdepth 2 -type f | sort
+          find public -maxdepth 3 -type f | sort
       - uses: actions/upload-pages-artifact@v4
         with:
           path: public
@@ -82,7 +88,7 @@ jobs:
           body=$(cat <<'EOF'
           The MFG Stack Lab deployment workflow failed.
 
-          Check the latest **Deploy static site to GitHub Pages** workflow run. The explicit Pages artifact now requires the Google Search Console verification file to exist and match its exact token before deployment can proceed.
+          Check the latest **Deploy static site to GitHub Pages** workflow run. The explicit Pages artifact requires the buyer Fit Check, seller pilot page, nested service/model assets and Google Search Console verification file to exist before deployment can proceed.
           EOF
           )
           existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
