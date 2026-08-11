@@ -4,9 +4,9 @@ function val(fd,k){return String(fd.get(k)||'');}
 function add(scores,key,n){scores[key]+=n;}
 function buildFit(){
   const form=document.getElementById('fit-form'); if(!form)return;
-  const fd=new FormData(form); const required=['company','email','employees','model','stack','channels','bom','planning','traceability','locations','inventory','qbo','shopify','budget','timeline'];
+  const fd=new FormData(form); const required=['employees','model','stack','channels','bom','planning','traceability','locations','inventory','qbo','shopify','budget','timeline'];
   const missing=required.filter(k=>!val(fd,k)); const out=document.getElementById('fit-result');
-  if(missing.length){out.style.display='block';out.innerHTML='<b>Complete all required fields.</b><p>No answers are transmitted until you choose to send the generated email.</p>';return;}
+  if(missing.length){out.style.display='block';out.innerHTML='<b>Complete the operating questions to calculate your fit.</b><p>Company name and email are optional for the calculation and are only needed if you want the emailed 3-point review.</p>';return;}
   const scores={Katana:50,MRPeasy:50,inFlow:50,Intuit:50};
   let complexity=0; const reasons=[]; const gates=[];
   const model=val(fd,'model'),stack=val(fd,'stack'),channels=val(fd,'channels'),bom=val(fd,'bom'),planning=val(fd,'planning'),trace=val(fd,'traceability'),locations=val(fd,'locations'),inventory=val(fd,'inventory'),qbo=val(fd,'qbo'),shopify=val(fd,'shopify');
@@ -56,7 +56,13 @@ function buildFit(){
   const machine=[
     'MFGFIT/1',`company=${company}`,`contact_email=${email}`,`employees=${val(fd,'employees')}`,`manufacturing_model=${model}`,`current_stack=${stack}`,`sales_channels=${channels}`,`bom=${bom}`,`planning=${planning}`,`traceability=${trace}`,`locations=${locations}`,`inventory_reliability=${inventory}`,`quickbooks_required=${qbo}`,`shopify_required=${shopify}`,`budget=${val(fd,'budget')}`,`timeline=${val(fd,'timeline')}`,`top_path=${top[0]}`,`top_score=${top[1]}`,`second_path=${second[0]}`,`second_score=${second[1]}`,`complexity_stage=${stage}`,`vendor_intro_consent=${consent}`,`source=${source}`,'---','Automated 3-point fit note:',`1. ${note1}`,`2. ${note2}`,`3. ${note3}`,'','I understand this is a preliminary decision aid. If vendor_intro_consent=yes, MFG Stack Lab may introduce this request to matching software vendors and may receive compensation; compensation does not change fit scoring.'
   ];
-  const subject=`MFGFIT | ${company} | ${top[0]} ${top[1]}`;
+  const subject=`MFGFIT | ${company||'Buyer profile'} | ${top[0]} ${top[1]}`;
   const mail='mailto:liuambition982+mfgstacklab@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(machine.join('\n'));
-  out.style.display='block';out.innerHTML=`<span class="tag">${esc(stage)} · complexity ${complexity}</span><h2>Your preliminary software paths</h2><table><tr><th>Path</th><th>Fit</th></tr>${ranking.map(([k,v])=>`<tr><td>${esc(k==='Intuit'?'Intuit path (QBO / Enterprise Suite)':k)}</td><td><b>${v}/100</b></td></tr>`).join('')}</table><h3>Free 3-point fit note</h3><ol><li>${esc(note1)}</li><li>${esc(note2)}</li><li>${esc(note3)}</li></ol><div class="evidence"><b>Independence control:</b> commercial relationships are checked only after these scores are calculated. Money cannot change fit score or recommendation order.</div><div class="actions"><a class="btn btn-primary" href="${mail}">Email this profile for the free fit review</a><a class="btn btn-secondary" href="services/software-fit-diagnostic.html">Get the $149 deep diagnostic</a></div><p class="fine">Nothing was transmitted by this calculation. Data is sent only if you choose to send the generated email.</p>`;out.scrollIntoView({behavior:'smooth',block:'start'});
+  const contactAction=(company&&email)
+    ? `<a class="btn btn-primary" href="${mail}">Email this profile for the free fit review</a>`
+    : `<a class="btn btn-primary" href="#fit-form" onclick="document.querySelector('[name=company]').focus();return true;">Add company + work email for the free review</a>`;
+  const contactNote=(company&&email)
+    ? 'Nothing was transmitted by this calculation. Data is sent only if you choose to send the generated email.'
+    : 'Your result was calculated anonymously. Add company + work email above and calculate again only if you want the emailed 3-point review or a vendor introduction.';
+  out.style.display='block';out.innerHTML=`<span class="tag">${esc(stage)} · complexity ${complexity}</span><h2>Your preliminary software paths</h2><table><tr><th>Path</th><th>Fit</th></tr>${ranking.map(([k,v])=>`<tr><td>${esc(k==='Intuit'?'Intuit path (QBO / Enterprise Suite)':k)}</td><td><b>${v}/100</b></td></tr>`).join('')}</table><h3>Free 3-point fit note</h3><ol><li>${esc(note1)}</li><li>${esc(note2)}</li><li>${esc(note3)}</li></ol><div class="evidence"><b>Independence control:</b> commercial relationships are checked only after these scores are calculated. Money cannot change fit score or recommendation order.</div><div class="actions">${contactAction}<a class="btn btn-secondary" href="services/software-fit-diagnostic.html">Get the $149 deep diagnostic</a></div><p class="fine">${esc(contactNote)}</p>`;out.scrollIntoView({behavior:'smooth',block:'start'});
 }
