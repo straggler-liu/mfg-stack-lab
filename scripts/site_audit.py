@@ -9,6 +9,12 @@ ROOT = Path(__file__).resolve().parents[1]
 PLACEHOLDERS = ('YOUR-DOMAIN', 'Replace this paragraph', 'operating company name', 'company email and jurisdiction')
 VERIFICATION_FILE = 'googlea4b5334b8d3b78e4.html'
 VERIFICATION_TOKEN = 'google-site-verification: googlea4b5334b8d3b78e4.html'
+REQUIRED_PUBLISH_PATHS = (
+    'fit-check.html',
+    'vendor-partners.html',
+    'services/software-fit-diagnostic.html',
+    'data/fit-model-v1.json',
+)
 
 class Parser(HTMLParser):
     def __init__(self):
@@ -33,22 +39,34 @@ def local_target(source: Path, href: str) -> Path | None:
     if not clean: return None
     return (source.parent / clean).resolve()
 
-def audit_local():
-    errors=[]; pages=[]
-    for path in sorted(ROOT.glob('*.html')):
+def publish_html_pages():
+    pages=[]
+    for path in ROOT.rglob('*.html'):
+        rel=path.relative_to(ROOT)
+        if rel.parts and rel.parts[0] in ('.git','public'):
+            continue
         if path.name == VERIFICATION_FILE:
             continue
+        pages.append(path)
+    return sorted(pages)
+
+def audit_local():
+    errors=[]; pages=[]
+    for required in REQUIRED_PUBLISH_PATHS:
+        if not (ROOT / required).exists(): errors.append(f'{required}: required publish asset missing')
+    for path in publish_html_pages():
+        rel=path.relative_to(ROOT).as_posix()
         text=path.read_text(encoding='utf-8')
         p=Parser(); p.feed(text)
-        if not p.title: errors.append(f'{path.name}: missing title')
-        if not p.desc: errors.append(f'{path.name}: missing meta description')
-        if p.h1 != 1: errors.append(f'{path.name}: expected one h1, found {p.h1}')
+        if not p.title: errors.append(f'{rel}: missing title')
+        if not p.desc: errors.append(f'{rel}: missing meta description')
+        if p.h1 != 1: errors.append(f'{rel}: expected one h1, found {p.h1}')
         for placeholder in PLACEHOLDERS:
-            if placeholder.lower() in text.lower(): errors.append(f'{path.name}: unresolved placeholder: {placeholder}')
+            if placeholder.lower() in text.lower(): errors.append(f'{rel}: unresolved placeholder: {placeholder}')
         for href in p.links:
             target=local_target(path, href)
-            if target and not target.exists(): errors.append(f'{path.name}: missing local target {href}')
-        pages.append({'page':path.name,'title':p.title,'h1':p.h1,'links':len(p.links)})
+            if target and not target.exists(): errors.append(f'{rel}: missing local target {href}')
+        pages.append({'page':rel,'title':p.title,'h1':p.h1,'links':len(p.links)})
     verification = ROOT / VERIFICATION_FILE
     if not verification.exists():
         errors.append(f'{VERIFICATION_FILE}: missing Google verification file')
@@ -60,15 +78,23 @@ def audit_local():
 
 def audit_live(base: str):
     errors=[]; results=[]
-    for rel in ('','mrp-software.html','mrp-readiness.html','tco-calculator.html','privacy.html',VERIFICATION_FILE):
+    checks=(
+        ('','Find the right manufacturing software'),
+        ('fit-check.html','Manufacturing Software Fit Check'),
+        ('vendor-partners.html','Qualified manufacturing software opportunities'),
+        ('services/software-fit-diagnostic.html','Manufacturing Software Fit Diagnostic'),
+        ('methodology.html','MFGFIT/1'),
+        ('data/fit-model-v1.json','MFGFIT/1'),
+        (VERIFICATION_FILE,VERIFICATION_TOKEN),
+    )
+    for rel,marker in checks:
         url=base.rstrip('/')+'/'+rel
-        req=urllib.request.Request(url,headers={'User-Agent':'MFGStackLab-Monitor/1.0'})
+        req=urllib.request.Request(url,headers={'User-Agent':'MFGStackLab-Monitor/1.1'})
         try:
             with urllib.request.urlopen(req,timeout=20) as r:
-                code=r.status; body=r.read(300000).decode('utf-8','ignore')
+                code=r.status; body=r.read(500000).decode('utf-8','ignore')
             if code != 200: errors.append(f'{url}: HTTP {code}')
-            if rel=='' and 'Choose manufacturing software with evidence' not in body: errors.append(f'{url}: homepage marker missing')
-            if rel==VERIFICATION_FILE and body.strip() != VERIFICATION_TOKEN: errors.append(f'{url}: Google verification token mismatch')
+            if marker not in body: errors.append(f'{url}: required marker missing: {marker}')
             results.append({'url':url,'status':code,'bytes':len(body)})
         except Exception as exc:
             errors.append(f'{url}: {type(exc).__name__}: {exc}')
@@ -82,6 +108,6 @@ def main():
     errors=report['local']['errors'] + report.get('live',{}).get('errors',[])
     if errors:
         print('\n'.join(errors)); return 1
-    print(f"Site audit passed: {len(report['local']['pages'])} HTML pages plus Google verification file")
+    print(f"Site audit passed: {len(report['local']['pages'])} HTML pages plus required nested assets and Google verification file")
     return 0
 if __name__=='__main__': raise SystemExit(main())
