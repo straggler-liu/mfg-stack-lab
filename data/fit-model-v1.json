@@ -1,0 +1,32 @@
+{
+  "model_version": "MFGFIT/1",
+  "effective_date": "2026-08-12",
+  "purpose": "Preliminary buyer-side manufacturing software fit triage. Not a purchase or implementation recommendation.",
+  "independence_rule": "Fit scores are calculated and frozen before commercial relationships are checked. Compensation cannot change score or recommendation order.",
+  "paths": ["Katana", "MRPeasy", "inFlow", "Intuit path (QBO / Enterprise Suite)"],
+  "input_dimensions": ["manufacturing_model", "current_stack", "sales_channels", "bom_complexity", "production_planning", "traceability", "locations", "inventory_reliability", "quickbooks_requirement", "shopify_requirement", "budget_band", "decision_timeline"],
+  "hard_gates": [
+    {"condition":"multi_level_bom_required", "rule":"Cap Intuit path at 45", "basis":"Intuit official help states multi-level bills of materials with subassemblies are not supported in Intuit Enterprise Suite."},
+    {"condition":"mandatory_traceability", "rule":"Require workflow-level validation before purchase", "basis":"High-consequence traceability cannot be accepted from a marketing feature list alone."},
+    {"condition":"materially_unreliable_inventory", "rule":"Require item-master and opening-inventory reconciliation before migration", "basis":"Migration control rule."}
+  ],
+  "primary_sources": [
+    {"vendor":"Intuit", "topic":"Manufacturing orders and BOM boundary", "url":"https://quickbooks.intuit.com/learn-support/en-us/help-article/sales-orders/learn-manufacturing-orders-assemblies/L7ffspckB_US_en_US", "checked":"2026-08-11"},
+    {"vendor":"Katana", "topic":"Shopify integration", "url":"https://katanamrp.com/integrations/shopify/", "checked":"2026-08-11"},
+    {"vendor":"Katana", "topic":"Subassemblies / multi-level BOM", "url":"https://support.katanamrp.com/en/articles/5967064-using-subassemblies-in-product-recipes", "checked":"2026-08-12"},
+    {"vendor":"MRPeasy", "topic":"Shopify integration", "url":"https://www.mrpeasy.com/shopify/", "checked":"2026-08-11"},
+    {"vendor":"MRPeasy", "topic":"Multi-level BOM and scheduling", "url":"https://www.mrpeasy.com/demo-videos/multi-level-bom-and-multi-level-production-scheduling/", "checked":"2026-08-12"},
+    {"vendor":"inFlow", "topic":"Manufacturing", "url":"https://www.inflowinventory.com/inflow-manufacturing", "checked":"2026-08-12"},
+    {"vendor":"inFlow", "topic":"Shopify integration", "url":"https://www.inflowinventory.com/support/cloud/connecting-inflow-to-shopify", "checked":"2026-08-12"},
+    {"vendor":"inFlow", "topic":"QuickBooks Online / Intuit Enterprise Suite integration", "url":"https://www.inflowinventory.com/support/cloud/how-do-i-set-up-quickbooks-online-with-inflow", "checked":"2026-08-12"}
+  ],
+  "commercial_policy": {
+    "buyer_free_fit_check": true,
+    "buyer_deep_diagnostic_usd": 149,
+    "seller_pilot_accepted_intro_usd": 99,
+    "buyer_consent_required_for_vendor_intro": true,
+    "pay_to_rank": false,
+    "seller_membership": "not_launched",
+    "intent_data_product": "not_launched"
+  }
+}
