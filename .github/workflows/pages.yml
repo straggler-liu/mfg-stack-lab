@@ -44,7 +44,12 @@ jobs:
           if [ -d downloads ]; then cp -R downloads public/; fi
           find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.xml' -o -name '*.txt' -o -name '*.csv' \) -exec cp {} public/ \;
           touch public/.nojekyll
+          test -f public/quick-fit.html
           test -f public/fit-check.html
+          test -f public/tco-calculator.html
+          test -f public/manufacturing-software-requirements-checklist.html
+          test -f public/metal-fabrication-mrp.html
+          test -f public/advisor-partners.html
           test -f public/vendor-partners.html
           test -f public/services/software-fit-diagnostic.html
           test -f public/data/fit-model-v1.json
@@ -56,6 +61,8 @@ jobs:
           path: public
       - name: Deploy
         id: deployment
+        env:
+          NODE_OPTIONS: --use-system-ca
         uses: actions/deploy-pages@v4
 
   report-success:
@@ -90,7 +97,7 @@ jobs:
           body=$(cat <<'EOF'
           The MFG Stack Lab deployment workflow failed.
 
-          Check the latest **Deploy static site to GitHub Pages** workflow run. The explicit Pages artifact requires the buyer Fit Check, seller pilot page, nested service/model assets and Google Search Console verification file to exist before deployment can proceed.
+          Check the latest **Deploy static site to GitHub Pages** workflow run. The explicit Pages artifact requires the buyer acquisition tools, seller/advisor pages, nested service/model assets and Google Search Console verification file to exist before deployment can proceed.
           EOF
           )
           existing=$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')
