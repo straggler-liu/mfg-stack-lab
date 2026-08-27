@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/</loc><lastmod>2026-08-13</lastmod></url>
+  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/</loc><lastmod>2026-08-19</lastmod></url>
+  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/decision-engine.html</loc><lastmod>2026-08-19</lastmod></url>
+  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/do-i-need-mrp-or-erp.html</loc><lastmod>2026-08-19</lastmod></url>
+  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/manufacturing-erp-implementation-risk.html</loc><lastmod>2026-08-19</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/quick-fit.html</loc><lastmod>2026-08-12</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/quick-fit-de.html</loc><lastmod>2026-08-13</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/mrp-software-deutschland.html</loc><lastmod>2026-08-13</lastmod></url>
@@ -9,9 +12,9 @@
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/tco-calculator.html</loc><lastmod>2026-08-12</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/manufacturing-software-requirements-checklist.html</loc><lastmod>2026-08-12</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/metal-fabrication-mrp.html</loc><lastmod>2026-08-12</lastmod></url>
-  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/shopify-manufacturing-inventory-mrp.html</loc><lastmod>2026-08-13</lastmod></url>
-  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/xero-manufacturing-mrp.html</loc><lastmod>2026-08-13</lastmod></url>
-  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/mrp-software-pricing.html</loc><lastmod>2026-08-12</lastmod></url>
+  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/shopify-manufacturing-inventory-mrp.html</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/xero-manufacturing-mrp.html</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://straggler-liu.github.io/mfg-stack-lab/mrp-software-pricing.html</loc><lastmod>2026-08-22</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/katana-vs-mrpeasy.html</loc><lastmod>2026-08-12</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/mrpeasy-vs-inflow.html</loc><lastmod>2026-08-12</lastmod></url>
   <url><loc>https://straggler-liu.github.io/mfg-stack-lab/advisor-partners.html</loc><lastmod>2026-08-12</lastmod></url>
