@@ -10,6 +10,7 @@ PLACEHOLDERS = ('YOUR-DOMAIN', 'Replace this paragraph', 'operating company name
 VERIFICATION_FILE = 'googlea4b5334b8d3b78e4.html'
 VERIFICATION_TOKEN = 'google-site-verification: googlea4b5334b8d3b78e4.html'
 REQUIRED_PUBLISH_PATHS = (
+    'decision-engine.html',
     'fit-check.html',
     'vendor-partners.html',
     'services/software-fit-diagnostic.html',
@@ -79,7 +80,8 @@ def audit_local():
 def audit_live(base: str):
     errors=[]; results=[]
     checks=(
-        ('','Find the right manufacturing software'),
+        ('','Map the software boundary before vendor demos shape the answer.'),
+        ('decision-engine.html','Start with your operating constraint, not a software catalog.'),
         ('fit-check.html','Manufacturing Software Fit Check'),
         ('vendor-partners.html','Qualified manufacturing software opportunities'),
         ('services/software-fit-diagnostic.html','Manufacturing Software Fit Diagnostic'),
@@ -89,7 +91,7 @@ def audit_live(base: str):
     )
     for rel,marker in checks:
         url=base.rstrip('/')+'/'+rel
-        req=urllib.request.Request(url,headers={'User-Agent':'MFGStackLab-Monitor/1.1'})
+        req=urllib.request.Request(url,headers={'User-Agent':'MFGStackLab-Monitor/1.2'})
         try:
             with urllib.request.urlopen(req,timeout=20) as r:
                 code=r.status; body=r.read(500000).decode('utf-8','ignore')
