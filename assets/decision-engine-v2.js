@@ -159,11 +159,11 @@
       <p><b>Best next pilot:</b> ${escapeHtml(decisionMap.pilot)}</p>
       <p><b>One missing fact that could change the recommendation:</b> ${escapeHtml(decisionMap.missing)}</p>
       <div class="actions">
-        <a class="btn btn-primary" href="${review.href}">Open free review request</a>
+        <a class="btn btn-primary" href="services/software-fit-diagnostic.html?utm_source=decision-engine&utm_campaign=first-order">Get the 48-hour $149 decision brief</a>
+        <a class="btn btn-secondary" href="${review.href}">Send a free review request</a>
         <button type="button" class="btn btn-secondary" id="de-copy-review">Copy review request</button>
-        <a class="btn btn-secondary" href="fit-check.html?utm_source=decision-engine-v2&utm_campaign=initial-map">Run the deeper fit check</a>
       </div>
-      <p class="fine">Send the copied request to <b>liuambition982+mfgstacklab@gmail.com</b>. Nothing is transmitted unless you choose to send it. This initial map uses only the facts entered in this browser; no company website content was fetched.</p>
+      <p class="fine">The paid brief includes a case-specific requirements matrix, no more than two recommended paths, five implementation risks and a 30-day pilot plan. Nothing is transmitted unless you choose to send a request. No company website content is fetched.</p>
     `;
 
     $('#de-copy-review')?.addEventListener('click', async (event) => {
