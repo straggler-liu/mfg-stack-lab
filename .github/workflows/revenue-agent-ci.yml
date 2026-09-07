@@ -1,0 +1,34 @@
+name: MFG Revenue Agent CI
+
+on:
+  pull_request:
+    paths:
+      - 'agent/**'
+      - '.github/workflows/revenue-agent-ci.yml'
+  push:
+    branches:
+      - 'agent/mfg-revenue-agent-v0'
+    paths:
+      - 'agent/**'
+      - '.github/workflows/revenue-agent-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: agent/package-lock.json
+      - name: Install dependencies
+        working-directory: agent
+        run: npm install
+      - name: Build and test
+        working-directory: agent
+        run: npm test
